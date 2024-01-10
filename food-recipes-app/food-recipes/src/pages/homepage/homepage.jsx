@@ -15,6 +15,10 @@ function Homepage() {
 
     const [recipes, setRecipes] = useState([]);
 
+    // favourites data state
+
+    const [favourites, setFavourites] = useState([]);
+
     const getDataFromSearchInput = (getData) => {
         setLoadingState(true);
 
@@ -34,6 +38,23 @@ function Homepage() {
         getRecipes();
     }
 
+    const addToFavourites = (currentRecipeItem) => {
+
+        let copyFavourites = [...favourites];
+
+        const index = copyFavourites.findIndex(item=>item.id===currentRecipeItem.id);
+
+        if (index === -1) {
+            copyFavourites.push(currentRecipeItem);
+            setFavourites(copyFavourites);
+            
+            //save the favourites in local storage
+            localStorage.setItem('favourites', JSON.stringify(copyFavourites))
+        } else {
+            alert('This recipe is already present in your favourites')
+        }
+    }
+
     return (
         <div className='homepage'>
             <Search getDataFromSearchInput={getDataFromSearchInput} />
@@ -44,7 +65,14 @@ function Homepage() {
             <div className='items'>
                 {
                     recipes && recipes.length > 0
-                        ? recipes.map((item) => <RecipeItem id={item.id} image={item.image} title={item.title} />)
+                        ? recipes.map((item) => (
+                            <RecipeItem
+                                addToFavourites={() => addToFavourites(item)}
+                                id={item.id}
+                                image={item.image}
+                                title={item.title}
+                            />
+                        ))
                         : null
                 }
             </div>

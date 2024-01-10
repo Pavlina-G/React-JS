@@ -3,7 +3,7 @@ import './recipe.css';
 
 
 const RecipeItem = (props) => {
-    const { id, image, title } = props;
+    const { id, image, title, addToFavourites } = props;
 
     return (
         <div key={id} className="recipe-item">
@@ -14,8 +14,10 @@ const RecipeItem = (props) => {
             }}>
                 {/* <img src={image} alt="recipe" /> */}
             </div>
+
             <p>{title}</p>
-            <button>Add to favourites</button>
+
+            <button type="button" onClick={addToFavourites}>Add to favourites</button>
         </div>
     )
 }

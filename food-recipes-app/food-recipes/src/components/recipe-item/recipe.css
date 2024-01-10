@@ -13,9 +13,9 @@
     border-radius: 20px;
 }
 .recipe-item > div {
-    width: 100%;
+    width: 96%;
     height: 60%;
-    border-radius: 20px;
+    /* border-radius: 20px; */
 }
 .recipe-item p{
     color: rgb(135, 98, 135);
