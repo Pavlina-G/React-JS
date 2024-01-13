@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './search.css';
 
 import React from 'react'
 
 
 function Search(props) {
-// const Search = (props) => {
-    const { getDataFromSearchInput } = props;
+    // const Search = (props) => {
+    const { getDataFromSearchInput, apiCalled, setApiCalled } = props;
 
     const [inputValue, setInputValue] = useState('')
 
@@ -19,6 +19,13 @@ function Search(props) {
         event.preventDefault();
         getDataFromSearchInput(inputValue);
     }
+
+    useEffect(() => {
+        if (apiCalled){
+            setInputValue('')
+            setApiCalled(false)
+        }
+    }, [apiCalled, setApiCalled]);
 
 
     return (

@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/salsa');
+
 .loading {
     font-size: 40px;
     text-transform: uppercase;
@@ -26,9 +28,18 @@
 }
 
 .favourites-title {
-
+    color: rgb(213, 202, 213);
+    font-size: 44px;
+    margin: 40px 0px;
+    font-family: 'Salsa', sans-serif;                                        
+}
+.favourites-search input {
+    padding: 10px 50px;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 40px;
 }
 
 .favourites {
-    
+
 }

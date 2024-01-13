@@ -19,6 +19,10 @@ function Homepage() {
 
     const [favourites, setFavourites] = useState([]);
 
+    // api state
+
+    const [apiCalled, setApiCalled] = useState(false);
+
     const getDataFromSearchInput = (getData) => {
         setLoadingState(true);
 
@@ -34,6 +38,7 @@ function Homepage() {
             if (results && results.length > 0) {
                 setLoadingState(false);
                 setRecipes(results);
+                setApiCalled(true);
             }
         }
         getRecipes();
@@ -57,6 +62,15 @@ function Homepage() {
         }
     };
 
+    const removeFromFavourites = (currentRecipeId) => {
+        let copyFavourites = [...favourites];
+        copyFavourites = copyFavourites.filter(item => item.id !== currentRecipeId);
+
+        setFavourites(copyFavourites);
+        localStorage.setItem('favourites', JSON.stringify(copyFavourites))
+
+    }
+
     useEffect(() => {
         const getFavouritesFromLocalStorage = JSON.parse(localStorage.getItem("favourites"));
 
@@ -68,13 +82,21 @@ function Homepage() {
 
     return (
         <div className="homepage">
-            <Search getDataFromSearchInput={getDataFromSearchInput} />
+            <Search
+                getDataFromSearchInput={getDataFromSearchInput} 
+                apiCalled={apiCalled}
+                setApiCalled={setApiCalled}
+                />
 
             {/* show favourites items */}
 
             <div className="favourites-wrapper">
 
                 <h2 className="favourites-title">Favourites</h2>
+
+                <div className="favourites-search">
+                    <input name="search-favourites" placeholder="Search Favourites" id="" />
+                </div>
 
                 <div className="favourites">
                     {favourites && favourites.length > 0
@@ -83,6 +105,7 @@ function Homepage() {
                                 id={item.id}
                                 image={item.image}
                                 title={item.title}
+                                removeFromFavourites={() => removeFromFavourites(item.id)}
                             />
                         ))
                         : null}

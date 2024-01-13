@@ -2,7 +2,7 @@ import './favourite-item.css';
 
 
 const FavouriteItem = (props) => {
-    const { id, image, title } = props;
+    const { id, image, title, removeFromFavourites } = props;
 
     return (
         <div key={id} className="favourite-item">
@@ -16,7 +16,7 @@ const FavouriteItem = (props) => {
 
             <p>{title}</p>
 
-            <button type="button" >Remove from favourites</button>
+            <button type="button" onClick={removeFromFavourites}>Remove from favourites</button>
         </div>
     )
 }
