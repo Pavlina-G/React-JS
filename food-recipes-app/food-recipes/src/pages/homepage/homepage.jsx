@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import Search from "../../components/search/search";
 import "./homepage.css";
 import RecipeItem from "../../components/recipe-item/recipe";
@@ -53,7 +53,8 @@ function Homepage() {
         getRecipes();
     };
 
-    const addToFavourites = (currentRecipeItem) => {
+    // useCallback for addToFavourites
+    const addToFavourites = useCallback((currentRecipeItem) => {
         let copyFavourites = [...favourites];
 
         const index = copyFavourites.findIndex(
@@ -68,8 +69,26 @@ function Homepage() {
             localStorage.setItem("favourites", JSON.stringify(copyFavourites));
         } else {
             alert("This recipe is already present in your favourites");
-        }
-    };
+                }
+        }, [favourites])
+
+    // const addToFavourites = (currentRecipeItem) => {
+    //     let copyFavourites = [...favourites];
+
+    //     const index = copyFavourites.findIndex(
+    //         (item) => item.id === currentRecipeItem.id
+    //     );
+
+    //     if (index === -1) {
+    //         copyFavourites.push(currentRecipeItem);
+    //         setFavourites(copyFavourites);
+
+    //         //save the favourites in local storage
+    //         localStorage.setItem("favourites", JSON.stringify(copyFavourites));
+    //     } else {
+    //         alert("This recipe is already present in your favourites");
+    //     }
+    // };
 
     const removeFromFavourites = (currentRecipeId) => {
         let copyFavourites = [...favourites];
@@ -90,16 +109,16 @@ function Homepage() {
     }, []);
 
     // filter searched favourite recipes
-    
-    const filteredFavouriteRecipes = favourites.filter(r=>r.title.toLowerCase().includes(searchedRecipe))
+
+    const filteredFavouriteRecipes = favourites.filter(r => r.title.toLowerCase().includes(searchedRecipe))
 
     return (
         <div className="homepage">
             <Search
-                getDataFromSearchInput={getDataFromSearchInput} 
+                getDataFromSearchInput={getDataFromSearchInput}
                 apiCalled={apiCalled}
                 setApiCalled={setApiCalled}
-                />
+            />
 
             {/* show favourites items */}
 
@@ -108,10 +127,10 @@ function Homepage() {
                 <h2 className="favourites-title">Favourites</h2>
 
                 <div className="favourites-search">
-                    <input 
-                    onChange={handleSearchRecipe}
-                    value={searchedRecipe}
-                    type="search" name="search-favourites" placeholder="Search Favourites" id="" />
+                    <input
+                        onChange={handleSearchRecipe}
+                        value={searchedRecipe}
+                        type="search" name="search-favourites" placeholder="Search Favourites" id="" />
                 </div>
 
                 <div className="favourites">
@@ -134,7 +153,23 @@ function Homepage() {
                 <div className="loading">Loading recipes! Please wait!</div>
             )}
             <div className="items">
-                {recipes && recipes.length > 0
+
+                {/* useMemo to show recipes */}
+                {
+                    useMemo(() =>
+                        !loadingState && recipes && recipes.length > 0
+                            ? recipes.map((item) => (
+                                <RecipeItem
+                                    addToFavourites={() => addToFavourites(item)}
+                                    id={item.id}
+                                    image={item.image}
+                                    title={item.title}
+                                />
+                            ))
+                            : null,
+                        [loadingState, recipes, addToFavourites])
+                }
+                {/* {recipes && recipes.length > 0
                     ? recipes.map((item) => (
                         <RecipeItem
                             addToFavourites={() => addToFavourites(item)}
@@ -143,7 +178,7 @@ function Homepage() {
                             title={item.title}
                         />
                     ))
-                    : null}
+                    : null} */}
             </div>
         </div>
     );
