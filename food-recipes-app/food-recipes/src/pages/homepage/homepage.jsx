@@ -19,6 +19,15 @@ function Homepage() {
 
     const [favourites, setFavourites] = useState([]);
 
+    // search recipes
+
+    const [searchedRecipe, setSearchedRecipe] = useState('');
+
+    const handleSearchRecipe = (event) => {
+        event.preventDefault();
+        const value = event.target.value
+        setSearchedRecipe(value)
+    }
     // api state
 
     const [apiCalled, setApiCalled] = useState(false);
@@ -80,6 +89,10 @@ function Homepage() {
 
     }, []);
 
+    // filter searched favourite recipes
+    
+    const filteredFavouriteRecipes = favourites.filter(r=>r.title.toLowerCase().includes(searchedRecipe))
+
     return (
         <div className="homepage">
             <Search
@@ -95,12 +108,15 @@ function Homepage() {
                 <h2 className="favourites-title">Favourites</h2>
 
                 <div className="favourites-search">
-                    <input name="search-favourites" placeholder="Search Favourites" id="" />
+                    <input 
+                    onChange={handleSearchRecipe}
+                    value={searchedRecipe}
+                    type="search" name="search-favourites" placeholder="Search Favourites" id="" />
                 </div>
 
                 <div className="favourites">
-                    {favourites && favourites.length > 0
-                        ? favourites.map((item) => (
+                    {filteredFavouriteRecipes && filteredFavouriteRecipes.length > 0
+                        ? filteredFavouriteRecipes.map((item) => (
                             <FavouriteItem
                                 id={item.id}
                                 image={item.image}
