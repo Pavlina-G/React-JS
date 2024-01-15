@@ -31,6 +31,7 @@ function Homepage() {
     // api state
 
     const [apiCalled, setApiCalled] = useState(false);
+    const [recipesFound, setRecipesFound] = useState(true);
 
     const getDataFromSearchInput = (getData) => {
         setLoadingState(true);
@@ -48,7 +49,13 @@ function Homepage() {
                 setLoadingState(false);
                 setRecipes(results);
                 setApiCalled(true);
+                setRecipesFound(true)
+            } else {
+                setLoadingState(false);
+                setRecipesFound(false)
+                
             }
+
         }
         getRecipes();
     };
@@ -67,10 +74,11 @@ function Homepage() {
 
             //save the favourites in local storage
             localStorage.setItem("favourites", JSON.stringify(copyFavourites));
+            window.scrollTo({top:'0', behavior: 'smooth'});
         } else {
             alert("This recipe is already present in your favourites");
-                }
-        }, [favourites])
+        }
+    }, [favourites])
 
     // const addToFavourites = (currentRecipeItem) => {
     //     let copyFavourites = [...favourites];
@@ -110,7 +118,9 @@ function Homepage() {
 
     // filter searched favourite recipes
 
-    const filteredFavouriteRecipes = favourites.filter(r => r.title.toLowerCase().includes(searchedRecipe))
+    const filteredFavouriteRecipes = favourites && favourites.length > 0 
+    ? favourites.filter(r => r.title.toLowerCase().includes(searchedRecipe))
+    : [];
 
     return (
         <div className="homepage">
@@ -132,6 +142,11 @@ function Homepage() {
                         value={searchedRecipe}
                         type="search" name="search-favourites" placeholder="Search Favourites" id="" />
                 </div>
+                {
+                    !filteredFavouriteRecipes.length && <div className="not-found">
+                        No Favourite Recipes Are Found
+                    </div>
+                }
 
                 <div className="favourites">
                     {filteredFavouriteRecipes && filteredFavouriteRecipes.length > 0
@@ -149,9 +164,17 @@ function Homepage() {
 
             {/* show loading state */}
 
-            {loadingState && (
+            {loadingState && recipes && (
                 <div className="loading">Loading recipes! Please wait!</div>
             )}
+            {
+                !loadingState && !recipesFound && <div className="not-found">
+                    No Recipes Are Found
+
+                </div>
+            }
+
+
             <div className="items">
 
                 {/* useMemo to show recipes */}
@@ -180,6 +203,8 @@ function Homepage() {
                     ))
                     : null} */}
             </div>
+            {/* In JavaScript a true && 'Hello World' always evaluates to Hello World and a false && 'Hello World' always evaluates to false. */}
+
         </div>
     );
 }
