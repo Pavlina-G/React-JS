@@ -5,6 +5,7 @@ import RecipeItem from "../../components/recipe-item/recipe";
 import { useEffect } from "react";
 import FavouriteItem from "../../components/favourite-item/favourite-item";
 
+
 function Homepage() {
     // loading state
 
@@ -53,7 +54,7 @@ function Homepage() {
             } else {
                 setLoadingState(false);
                 setRecipesFound(false)
-                
+
             }
 
         }
@@ -74,7 +75,7 @@ function Homepage() {
 
             //save the favourites in local storage
             localStorage.setItem("favourites", JSON.stringify(copyFavourites));
-            window.scrollTo({top:'0', behavior: 'smooth'});
+            window.scrollTo({ top: '0', behavior: 'smooth' });
         } else {
             alert("This recipe is already present in your favourites");
         }
@@ -118,9 +119,9 @@ function Homepage() {
 
     // filter searched favourite recipes
 
-    const filteredFavouriteRecipes = favourites && favourites.length > 0 
-    ? favourites.filter(r => r.title.toLowerCase().includes(searchedRecipe))
-    : [];
+    const filteredFavouriteRecipes = favourites && favourites.length > 0
+        ? favourites.filter(r => r.title.toLowerCase().includes(searchedRecipe))
+        : [];
 
     return (
         <div className="homepage">
