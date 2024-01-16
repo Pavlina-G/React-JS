@@ -4,6 +4,7 @@ import "./homepage.css";
 import RecipeItem from "../../components/recipe-item/recipe";
 import { useEffect } from "react";
 import FavouriteItem from "../../components/favourite-item/favourite-item";
+// import { Link } from "react-router-dom";
 
 
 function Homepage() {
@@ -46,6 +47,7 @@ function Homepage() {
             const result = await apiResp.json();
             const { results } = result;
 
+
             if (results && results.length > 0) {
                 setLoadingState(false);
                 setRecipes(results);
@@ -60,6 +62,14 @@ function Homepage() {
         }
         getRecipes();
     };
+
+    const getRecipeUrl = useMemo(() => (async (recipeId) => {
+        const resp = await fetch(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${API_KEY}`);
+        const data = await resp.json();
+
+        return window.open(data.sourceUrl, '_blank', 'noreferrer');
+    }), [API_KEY])
+
 
     // useCallback for addToFavourites
     const addToFavourites = useCallback((currentRecipeItem) => {
@@ -157,6 +167,7 @@ function Homepage() {
                                 image={item.image}
                                 title={item.title}
                                 removeFromFavourites={() => removeFromFavourites(item.id)}
+                                getRecipeUrl={() => getRecipeUrl(item.id)}
                             />
                         ))
                         : null}
@@ -188,10 +199,12 @@ function Homepage() {
                                     id={item.id}
                                     image={item.image}
                                     title={item.title}
+                                    getRecipeUrl={() => getRecipeUrl(item.id)}
+
                                 />
                             ))
                             : null,
-                        [loadingState, recipes, addToFavourites])
+                        [loadingState, recipes, addToFavourites, getRecipeUrl])
                 }
                 {/* {recipes && recipes.length > 0
                     ? recipes.map((item) => (
