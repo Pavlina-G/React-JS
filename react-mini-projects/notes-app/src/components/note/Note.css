@@ -1,0 +1,28 @@
+
+.container p {
+    position: relative;
+    margin-top: 35%;
+}
+
+.container {
+    width: 250px;
+    min-height: 250px;
+    border: 2px solid rgb(240, 239, 239);
+    border-radius: 16px;
+    position: relative;
+    padding: 10px 10px;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-image: url(../../design.png);
+    background-size: contain;
+    /* background-position: 80% 5%; */
+    background-repeat: no-repeat;
+    opacity: 0.365;
+}
