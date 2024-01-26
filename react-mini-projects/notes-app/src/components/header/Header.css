@@ -1,11 +1,28 @@
-h1 {
-    background-color: rgb(197, 236, 226);
-    background-color: #a5efcd;
-    background-color: #3fbe83;
+header {
+    /* background-color: #3fbe83;
+    background-color: #189270; */
     background-image: radial-gradient(circle, #3fbe83, #38c280, #32c67d, #2bca79, #24ce75);
+    /* background-image: linear-gradient(to right top, #3fbe83, #35b37f, #2ba87a, #219d75, #189270); */
     padding: 16px 0;
     font-family: 'Poetsen One', sans-serif;
-    color: #24ce75;
+    /* color: #24ce75;
     color: #ddce48;
-    color: #fff8b7;    
+    color: #fff8b7; */
+}
+
+header ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10%;
+    font-size: 32px;
+}
+
+header ul li {
+    list-style: none;
+}
+
+header ul li a{
+    text-decoration: none;
+    color: #fffce4;
 }

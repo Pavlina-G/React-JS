@@ -6,3 +6,12 @@
     margin-top: 40px;
     flex-wrap: wrap;
 }
+
+.notes-list-empty {
+    background-image: url('../../design.png');
+    background-repeat: space;
+    background-size: 26%;
+    background-position: 40%;
+    width: 90%;
+    height: 70vh;
+}
