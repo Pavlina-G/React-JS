@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './NotesList.css'
 import Note from '../note/Note'
+import AddNote from '../../pages/add-notes/AddNote';
 
 const dummyNotes = [
     {
@@ -14,33 +15,30 @@ const dummyNotes = [
     {
         name: 'task 3',
         id: 3
-    }
+    },
+
 ]
 
 function NotesList() {
 
-    const [notesList, setNotesList] = useState([]);
-
-    // setNotesList(dummyNotes)
+    const [notesList, setNotesList] = useState(dummyNotes);
 
     return (
 
-        (!notesList.length && <div className='notes-list-empty'></div>)
+        (!notesList.length ? <div className='notes-list-empty'></div> :
+            <div className='notes-list'>
+                <h1>My Notes</h1>
+                <ul>
+                    {
+                        notesList.map(note => (
+                            <Note key={note.id} name={note.name} />
+                        ))
+                    }
+                </ul>
+            </div>
 
-            // (notesList.length > 0 && (
-            //     <div className='notes-list'>
-            //         <h2>Notes List</h2>
-            //         <ul>
-            //             {
-            //                 notesList.map(note => (
-            //                     <li key={note.id}>{note.name}</li>
-            //                 ))
-            //             }
-            //         </ul>
-            //         /</div>
-
-            // ))
-            )
+        )
+    )
 }
 
 export default NotesList

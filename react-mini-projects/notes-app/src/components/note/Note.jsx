@@ -2,11 +2,12 @@ import './Note.css'
 
 import React from 'react'
 
-function Note() {
+function Note(props) {
+  const { id, name} = props;
   return (
-    <div className='container'>
-        <p>This is my test note</p>
-    </div>
+    <li key={id} className='container'>
+      <p>{name}</p>
+    </li>
   )
 }
 
