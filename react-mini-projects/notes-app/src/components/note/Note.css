@@ -1,28 +1,59 @@
-
-.container p {
-    position: relative;
-    margin-top: 35%;
-}
-
-.container {
+.note-container {
     width: 250px;
     min-height: 250px;
     border: 2px solid rgb(240, 239, 239);
     border-radius: 16px;
-    position: relative;
     padding: 10px 10px;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    position: relative;
 }
 
-.container::before {
+.note-container::before {
     content: '';
     position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    background-image: url(../../design.png);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-size: contain;
-    /* background-position: 80% 5%; */
     background-repeat: no-repeat;
-    opacity: 0.365;
+    background-image: url('./design.png');
+    opacity: 0.2;
+}
+
+
+.note-container>p {
+    position: relative;
+    text-align: center;
+    width: 90%;
+    height: 54%;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    resize: none;
+    border-radius: 8px;
+    padding: 4px 5px;
+    overflow: hidden;
+    color: rgb(10, 95, 64);
+    word-wrap: break-word;
+}
+
+
+.buttons-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    position: relative;
+}
+
+.buttons-wrapper > button{
+    font-weight: normal;
+    font-size: 18px;
+    padding: 1px 15px;
 }
