@@ -3,7 +3,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom'
 import Header from './components/header/Header';
 import AddNote from './pages/add-notes/AddNote';
-import NotesList from './components/notes-list/NotesList';
+import NotesList from './pages/notes-list/NotesList';
 import { useState } from 'react';
 
 
