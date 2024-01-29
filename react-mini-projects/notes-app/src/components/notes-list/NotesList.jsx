@@ -1,44 +1,45 @@
-import React, { useState } from 'react'
 import './NotesList.css'
 import Note from '../note/Note'
-import AddNote from '../../pages/add-notes/AddNote';
 
-const dummyNotes = [
-    {
-        name: 'task 1',
-        id: 1
-    },
-    {
-        name: 'task 2',
-        id: 2
-    },
-    {
-        name: 'task 3',
-        id: 3
-    },
 
-]
+function NotesList({ notes, setNotes }) {
 
-function NotesList() {
+    function editNote(noteId) {
 
-    const [notesList, setNotesList] = useState(dummyNotes);
+    }
+
+    function deleteNote(noteId) {
+        let copyNotes = [...notes];
+        copyNotes = copyNotes.filter(note => note.id !== noteId);
+
+        setNotes(copyNotes);
+    }
 
     return (
+        <div className='notes-wrapper'>
+            {(!notes.length ?
+                <div className='notes-list-empty'></div>
+                :
+                <div className='notes-list'>
+                    <h1>My Notes</h1>
+                    <div className="notes-items">
+                        {
+                            notes.map(note => (
+                                <Note
+                                    key={note.id}
+                                    name={note.name}
+                                    editNote={() => { editNote(note.id) }}
+                                    deleteNote={() => { deleteNote(note.id) }}
+                                />
+                            ))
+                        }
+                    </div>
 
-        (!notesList.length ? <div className='notes-list-empty'></div> :
-            <div className='notes-list'>
-                <h1>My Notes</h1>
-                <ul>
-                    {
-                        notesList.map(note => (
-                            <Note key={note.id} name={note.name} />
-                        ))
-                    }
-                </ul>
-            </div>
+                </div>
 
-        )
+            )}
+        </div>
     )
 }
 
-export default NotesList
+export default NotesList;

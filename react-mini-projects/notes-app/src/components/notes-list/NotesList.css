@@ -1,3 +1,9 @@
+.notes-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .notes-list {
     display: flex;
     flex-direction: column;
@@ -12,23 +18,20 @@
     color: rgb(11, 98, 66);
     font-weight: bolder;
 }
-
-.notes-list ul {
+.notes-list .notes-items {
     display: flex;
-    justify-content: center;
     gap: 40px;
     flex-wrap: wrap;
-}
-
-.notes-list ul li {
-    list-style: none;
 }
 
 .notes-list-empty {
     background-image: url('../../design.png');
     background-repeat: space;
     background-size: 26%;
-    background-position: 40%;
     width: 90%;
     height: 70vh;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 8%;
 }
