@@ -4,10 +4,6 @@ import Note from '../../components/note/Note'
 
 function NotesList({ notes, setNotes }) {
 
-    function editNote(noteId) {
-
-    }
-
     function deleteNote(noteId) {
         let copyNotes = [...notes];
         copyNotes = copyNotes.filter(note => note.id !== noteId);
@@ -27,8 +23,7 @@ function NotesList({ notes, setNotes }) {
                             notes.map(note => (
                                 <Note
                                     key={note.id}
-                                    name={note.name}
-                                    editNote={() => { editNote(note.id) }}
+                                    note={note}
                                     deleteNote={() => { deleteNote(note.id) }}
                                 />
                             ))

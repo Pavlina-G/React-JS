@@ -23,7 +23,7 @@ const AddNote = ({ setNotes }) => {
                 id: getKeyId(),
                 name
             }
-            console.log(setNotes);
+
             setNotes(prevNotes => [note, ...prevNotes])
             setName('');
             navigate('/')

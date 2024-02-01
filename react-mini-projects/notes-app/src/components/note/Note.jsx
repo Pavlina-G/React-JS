@@ -1,18 +1,18 @@
+import { Link } from 'react-router-dom';
 import Button from '../button/Button';
 import './Note.css'
 
 import React from 'react'
 
-function Note(props) {
-  const { id, name, editNote, deleteNote } = props;
+function Note({ note, deleteNote }) {
 
   return (
     <div className='note-container'>
-      <p key={id} className=''>{name}</p>
+      <p key={note.id} className=''>{note.name}</p>
       <div className="buttons-wrapper">
-        <Button text={'Edit'} handleClick={editNote} />
+        <Link to={`/edit-note/${note.id}`} className='main-btn'>Edit</Link>
         <Button text={'Delete'} handleClick={deleteNote} />
-        </div>
+      </div>
 
     </div>
 
